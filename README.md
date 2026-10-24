@@ -60,7 +60,7 @@ No external Python packages are required. The application uses Python's built-in
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/YOUR-USERNAME/video-game-stats-tracker.git
+   git clone https://github.com/jacka26/video-game-stats-tracker.git
    ```
 
 2. Navigate to the project directory:
