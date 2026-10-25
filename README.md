@@ -1,227 +1,230 @@
 # Video Game Stats Tracker
 
-A Python-based command-line application for recording, managing, and analyzing video game player statistics using SQLite.
+A Python-based video game statistics tracking application that uses SQLite for data storage and Streamlit for interactive analytics.
 
-The application allows users to register players, record match results, track individual performance, and compare players through a leaderboard.
-
-**Status:** Functional CLI application | 27 automated tests passing
+The project allows users to manage player profiles, record match results, analyze gameplay performance, and visualize statistics through both a command-line interface and a web dashboard.
 
 ## Features
 
-- **Player Management:** Register new players and view existing player profiles.
-- **Match Tracking:** Record kills, deaths, and match outcomes for individual players.
-- **Leaderboard:** Rank players by total kills and display match statistics.
-- **Player Statistics:** Calculate win rates, kill/death ratios, and overall performance.
-- **Match History:** Review previous matches for each player.
-- **Data Persistence:** Store player and match information in a SQLite database.
-- **Input Validation:** Handle invalid user input and database constraint violations.
-- **Automated Testing:** Verify application behavior using Python's unittest framework.
+### Player Management
+- Add and manage player profiles.
+- Store usernames, player levels, and ranks.
+- Retrieve player information from a SQLite database.
 
+### Match Tracking
+- Record match results, including kills, deaths, and wins or losses.
+- Maintain a persistent history of matches for each player.
+- Automatically calculate performance statistics.
 
-## Screenshots
+### Player Analytics
+- View total matches played, kills, and deaths.
+- Calculate win rates and kill/death (K/D) ratios.
+- View player statistics and match history.
+- Handle players with no matches or zero deaths.
 
-### Main Menu
+### Streamlit Dashboard
+- Select players using an interactive sidebar.
+- Filter match history by wins and losses.
+- Switch between lifetime and filtered statistics.
+- Visualize kills and deaths over time.
+- Analyze win/loss distributions and kills per match.
+- View match history in an interactive table.
+- Export filtered match history as a CSV file.
 
-The command-line interface provides access to all player and match management features.
-
-![Video Game Stats Tracker Main Menu](assets/screenshots/main-menu.png)
-
-### Player Leaderboard
-
-The leaderboard ranks players by total kills and displays their overall match statistics.
-
-![Player Leaderboard](assets/screenshots/leaderboard.png)
-
-### Player Statistics
-
-Individual player profiles include win rate, kill/death ratio, and match history.
-
-![Player Statistics](assets/screenshots/player-stats.png)
+### Testing
+- Automated unit tests using Python's unittest framework.
+- Database tests use an in-memory SQLite database.
+- Tests cover database operations and statistical calculations.
+- Additional tests validate dashboard filtering and edge cases.
 
 ## Technologies Used
 
-- **Python:** Application logic and command-line interface.
-- **SQLite:** Relational database for storing player and match records.
-- **SQL:** Database queries, joins, aggregations, and sorting.
-- **unittest:** Automated testing with isolated in-memory databases.
-- **Git and GitHub:** Version control and project hosting.
+| Technology | Purpose |
+|------------|---------|
+| Python | Application logic |
+| SQLite | Relational database |
+| SQL | Database queries and aggregation |
+| Streamlit | Interactive web dashboard |
+| Pandas | Data processing and visualization preparation |
+| unittest | Automated testing |
+| Git | Version control |
+| GitHub | Source code hosting |
+
+## Project Structure
+
+```text
+video-game-stats-tracker/
+|
+|-- main.py
+|-- database.py
+|-- dashboard.py
+|-- dashboard_utils.py
+|-- game_stats.db          # Local database (not tracked by Git)
+|-- requirements.txt
+|-- README.md
+|-- .gitignore
+|
+|-- tests/
+|   |-- __init__.py
+|   |-- test_dashboard_utils.py
+|   |-- ... other existing test files
+|
+|-- assets/
+    |-- screenshots/
+        |-- main-menu.png
+        |-- leaderboard.png
+        |-- player-stats.png
+        |-- dashboard.png
+```
 
 ## Installation
 
-### Prerequisites
+### 1. Clone the Repository
 
-- Python 3.10 or newer
-- Git (for cloning the repository)
-
-No external Python packages are required. The application uses Python's built-in `sqlite3` module.
-
-### Setup
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/jacka26/video-game-stats-tracker.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd video-game-stats-tracker
-   ```
-
-3. Run the application:
-
-   **Windows:**
-
-   ```bash
-   py main.py
-   ```
-
-   **macOS/Linux:**
-
-   ```bash
-   python3 main.py
-   ```
-
-The application automatically creates `game_stats.db` and initializes the required tables if they do not already exist.
-
-## Usage
-
-When the application starts, the following menu appears:
-
-```text
-=== VIDEO GAME STATS TRACKER ===
-
-1. View Players
-2. Add Player
-3. Record Match
-4. View Leaderboard
-5. View Player Statistics
-6. Exit
+```bash
+git clone https://github.com/jacka26/video-game-stats-tracker.git
+cd video-game-stats-tracker
 ```
 
-### Adding a Player
+### 2. Install Dependencies
 
-Select option `2` and enter a username and starting level.
+Make sure Python 3 is installed.
 
-Example:
+Install the required packages:
 
-```text
-Enter username: Jack
-Enter starting level: 20
-
-Player 'Jack' added successfully!
+```bash
+py -m pip install -r requirements.txt
 ```
 
-### Recording a Match
+### 3. Run the Command-Line Application
 
-Select option `3` and provide the player's ID, kills, deaths, and match result.
-
-Example:
-
-```text
-Enter Player ID: 1
-Enter kills: 20
-Enter deaths: 5
-Enter result (Win/Loss): Win
-
-Match recorded successfully for Jack!
+```bash
+py main.py
 ```
 
-### Viewing the Leaderboard
+The command-line interface allows users to create player profiles, record matches, and view statistics.
 
-Select option `4` to view players ranked by total kills.
+### 4. Run the Streamlit Dashboard
 
-The leaderboard includes:
+```bash
+py -m streamlit run dashboard.py
+```
 
-- Matches played
-- Total kills
-- Total deaths
-- Average kills per match
+Streamlit will open the dashboard in your browser, typically at:
 
-### Viewing Player Statistics
+http://localhost:8501
 
-Select option `5` and enter a player ID.
+Both interfaces use the same local SQLite database.
 
-The application displays:
+**Note:** The dashboard requires at least one player. Use the command-line application to create a player and record matches before exploring the dashboard.
 
-- Player level and rank
-- Total matches played
-- Wins and losses
-- Total kills and deaths
-- Kill/death ratio
-- Win rate
-- Match history
+## Screenshots
 
-## Project Architecture
+### Command-Line Interface
 
-The application separates its command-line interface, database operations, and automated tests into distinct components.
+**Main Menu**
 
-### Application Components
+![Main Menu](assets/screenshots/main-menu.png)
 
-- **main.py:** Provides the command-line menu, manages the SQLite connection, and handles application navigation.
-- **database.py:** Contains player management, match insertion, database queries, leaderboard calculations, and player statistics functions.
-- **game_stats.db:** Stores persistent player and match records using SQLite.
-- **tests/:** Contains automated tests that validate database operations and application logic using isolated in-memory SQLite databases.
+**Leaderboard**
 
-### Database Design
+![Leaderboard](assets/screenshots/leaderboard.png)
 
-The application uses two relational tables:
+**Player Statistics**
 
-**players**
-- player_id (Primary Key)
+![Player Statistics](assets/screenshots/player-stats.png)
+
+### Streamlit Analytics Dashboard
+
+![Streamlit Dashboard](assets/screenshots/dashboard.png)
+
+The dashboard displays player statistics, interactive performance charts, and filtered match history.
+
+## How It Works
+
+### Database
+
+The application uses a relational SQLite database containing two primary tables.
+
+**Players Table**
+
+Stores player information:
+
+- player_id
 - username
 - level
 - rank
 
-**matches**
-- match_id (Primary Key)
-- player_id (Foreign Key)
+**Matches Table**
+
+Stores gameplay records:
+
+- match_id
+- player_id
 - kills
 - deaths
 - result
 - played_at
 
-Each player can have multiple matches, establishing a one-to-many relationship between the players and matches tables.
+Each match is associated with a player through the `player_id` foreign key.
 
-Foreign-key constraints prevent matches from referencing nonexistent players.
+### Statistics Calculations
 
-### Testing Strategy
+**Win Rate**
+
+```text
+Win Rate = (Total Wins / Total Matches) × 100
+```
+
+**K/D Ratio**
+
+```text
+K/D Ratio = Total Kills / Total Deaths
+```
+
+The application handles division-by-zero cases by displaying N/A for undefined K/D ratios.
+
+### Dashboard Analytics
+
+The Streamlit dashboard retrieves player statistics from SQLite and displays performance metrics using interactive visualizations.
+
+Users can filter match history and choose whether the overview displays lifetime statistics or statistics calculated from the filtered results.
+
+## Running Automated Tests
 
 The project uses Python's built-in unittest framework.
 
-Each database test creates an isolated in-memory SQLite database using setUp() and closes the connection using tearDown().
-
-The automated test suite verifies:
-- Successful and failed player insertions
-- Match insertion and foreign-key constraints
-- Database retrieval and ordering
-- Leaderboard calculations
-- Player statistics and match history
-- Empty database and zero-death edge cases
-
-All 27 automated tests can be executed from the project root.
-
-## Running Tests
-
-Run the automated test suite from the project root:
+Run all tests from the project directory:
 
 ```bash
-python -m unittest discover -s tests -p "test_*.py" -t . -v
+py -m unittest discover -s tests -p "test_*.py" -t . -v
 ```
 
-On Windows, you can use `py` instead of `python`.
+The test suite covers:
 
-The project includes 27 automated tests covering database operations, constraints, leaderboard calculations, player statistics, and edge cases.
+- Player and match database operations.
+- Statistical calculations.
+- Win/loss filtering.
+- Empty match histories.
+- Zero-death K/D calculations.
 
+Database tests use an in-memory SQLite database to avoid modifying the application's real player records.
 
 ## Future Improvements
 
-Potential enhancements include:
+- **User Authentication:** Add accounts and login functionality for individual players.
+- **Advanced Analytics:** Introduce moving averages, performance trends, and player comparisons.
+- **Multi-Game Support:** Track statistics across different video games.
+- **Date Filtering:** Analyze player performance over selected time periods.
+- **Online Deployment:** Host the Streamlit dashboard so users can access it without running the project locally.
+- **Database Scalability:** Explore PostgreSQL for supporting larger datasets and multiple users.
 
-- **Graphical User Interface:** Develop a desktop or web interface to replace the command-line menu.
-- **Data Visualization:** Display player performance trends using charts and graphs.
-- **Advanced Analytics:** Track performance over time and calculate additional player statistics.
-- **Player Search and Filtering:** Allow users to search for players and filter match history.
-- **CSV Export:** Export player statistics and match records for external analysis.
-- **Expanded Testing:** Add automated tests for user input handling and multi-step database transactions.
+## Author
+
+Jack Akowanou
+
+GitHub: [jacka26](https://github.com/jacka26)
+
+## License
+
+No license has been specified for this repository.
